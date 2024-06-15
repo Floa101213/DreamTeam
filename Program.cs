@@ -1,4 +1,4 @@
-﻿string[] lista = {
+string[] lista = {
     "Michael Jordan (Armador)",
     "LeBron James (Ala)",
     "Kareem Abdul Jabbar (Pivô)",
@@ -36,47 +36,47 @@ for (int m = 0; m < 20; m++)
 
 Console.WriteLine("");
 Console.Write("0 jogador(es) selecionados. Adicionar o Top # ");
-Convert.ToInt32(Console.ReadLine());
+int quantidadeJogador = Convert.ToInt32(Console.ReadLine());
 
 Console.WriteLine();
+int[] time = new int[quantidadeJogador];
 
-for (int m = 0; m < 5; m++)
+for (int m = 0; m < quantidadeJogador; m++)
 {
     while (true)
     {
-        Console.WriteLine($"{jogadores} jogador(es) selecionados. Adicionar o Top # ");
+        
+        Console.Write("Selecione um jogador: ");
         int jogadorselecionado = Convert.ToInt32(Console.ReadLine());
-
-        jogadorselecionado--;
-
-        if (jogadorselecionado < 0 || jogadorselecionado >= 20)
-        {
-            Console.WriteLine("jogador não encontrado.");
-            continue;
-        }
-
-        int[] atleta = new int[5];
-
-        bool selecionado = false;
-        for (int anterior = 0; anterior < jogadorselecionado; anterior++)
-        {
-            selecionado = atleta[anterior] == jogadorselecionado;
-
-            if (selecionado) break;
-        }
-
-        if (selecionado)
+        
+        if (time.ToList().Any(f => f == jogadorselecionado))
         {
             Console.WriteLine("Esse Atleta Já pertence ao seu time."); continue;
         }
 
-        atleta[m] = jogadorselecionado;
+        if (jogadorselecionado < 1 || jogadorselecionado > 20)
+        {
+            Console.WriteLine("jogador não encontrado.");
+            continue;
+        }        
+
+        Console.WriteLine($"{lista[jogadorselecionado - 1]} jogador selecionado, adicionado ao Top #{quantidadeJogador} ");
+
+        time[m] = jogadorselecionado;
+              
+        Console.WriteLine($"\nseu time dos sonhos é\n");
+
+        List<int> timeList = time.ToList(); //converte a matriz em lista
+        timeList.Sort(); //ordena a lista
+        timeList.FindAll(t => t > 0) // Busca todos os jogadores já adicionados
+                .ForEach(t => Console.WriteLine($"\t{t} - {lista[t-1]}"));    //Exibe cada (Foreach) elemento (t)
+
         break;
-
-        Array.Sort(atleta);
-
-        Console.WriteLine("/nseu time dos sonhos é/n");
-
     }
 
 }
+
+Console.Write("\nPressione uma tecla para finalizar...");
+Console.ReadKey();
+
+Console.WriteLine();
