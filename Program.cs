@@ -35,8 +35,7 @@ for (int m = 0; m < 20; m++)
 }
 
 Console.WriteLine("");
-Console.Write("0 jogador(es) selecionados. Adicionar o Top # ");
-int quantidadeJogador = Convert.ToInt32(Console.ReadLine());
+int quantidadeJogador = 5;
 
 Console.WriteLine();
 int[] time = new int[quantidadeJogador];
@@ -45,32 +44,38 @@ for (int m = 0; m < quantidadeJogador; m++)
 {
     while (true)
     {
-        
-        Console.Write("Selecione um jogador: ");
+
+        Console.Write($"{m} jogador(es) selecionados. Adicionar o Top # ");
         int jogadorselecionado = Convert.ToInt32(Console.ReadLine());
-        
+
         if (time.ToList().Any(f => f == jogadorselecionado))
         {
-            Console.WriteLine("Esse Atleta Já pertence ao seu time."); continue;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Esse atleta já pertence ao seu time.");
+            Console.ResetColor();
+            continue;
         }
 
         if (jogadorselecionado < 1 || jogadorselecionado > 20)
         {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("jogador não encontrado.");
+            Console.ResetColor();
             continue;
-        }        
+        }
 
-        Console.WriteLine($"{lista[jogadorselecionado - 1]} jogador selecionado, adicionado ao Top #{quantidadeJogador} ");
+        Console.WriteLine($"{lista[jogadorselecionado - 1]} foi o jogador selecionado... ");
 
         time[m] = jogadorselecionado;
-              
-        Console.WriteLine($"\nseu time dos sonhos é\n");
 
+        Console.WriteLine($"\nSeu time dos sonhos é:\n");
+
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
         List<int> timeList = time.ToList(); //converte a matriz em lista
         timeList.Sort(); //ordena a lista
         timeList.FindAll(t => t > 0) // Busca todos os jogadores já adicionados
-                .ForEach(t => Console.WriteLine($"\t{t} - {lista[t-1]}"));    //Exibe cada (Foreach) elemento (t)
-
+                .ForEach(t => Console.WriteLine($"\t{t} - {lista[t - 1]}"));    //Exibe cada (Foreach) elemento (t)
+        Console.ResetColor();
         break;
     }
 
